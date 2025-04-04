@@ -1,8 +1,29 @@
 import { useGSAP } from "@gsap/react"
 import React from 'react'
 import ModelView from "./ModelView"
+import { useState } from "react"
+import { yellowImg } from "../utils"
+
+import * as THREE from 'three';
 
 const Model = () => {
+    const [size, setsize] = useState('small');
+    const [Model, setModel] = useState({
+        title: 'iPhone 15 Pro en Titanium',
+        color: ['#8F8A81', '#FFE7B9', '#6F6C64'], 
+        img: yellowImg, 
+    })
+
+    const cameraControllSmall = useRef(); 
+    const cameraControlLarge = useRef(); 
+
+    const small = useRef(new THREE.Group());
+    const large = useRef(new THREE.Group());
+
+    const [smallRotation, setSmallRotation] = useState(0); 
+    const [largeRotation, setLargeRotation] = useState(0); 
+
+
     useGSAP(() => {
         gsap.to('#heading', { y: 0, opacity: 1})
     }, [])
@@ -16,7 +37,15 @@ const Model = () => {
             </h1>
             <div className="flex flex-col items-center mt-5">
                 <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
-                <ModelView />
+                <ModelView 
+                index={1}
+                groupRef={small}
+                gsapType="view1"
+                controlRef={cameraControlSmall}
+                setRotationState={setSmallRotation}
+                item={model}
+                size={size}
+                />
                 </div>
             </div>
         </div>

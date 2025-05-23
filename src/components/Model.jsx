@@ -58,11 +58,17 @@ const Model = () => {
                 item={model}
                 size={size}
                 />
+
+                <Canvas 
+                className="w-full h-full"
+                >
+                    <View.Port />
+                </Canvas>
                 </div>
             </div>
         </div>
     </section>
   )
-}
+} 
 
 export default Model
